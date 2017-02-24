@@ -1,17 +1,38 @@
-# Eureka Server Sample
+# Heureka - Simple Eureka Server for Docker
 
-Run this project as a Spring Boot app (e.g. import into IDE and run
-main method, or use "mvn spring-boot:run or gradle bootRun or ./gradlew bootRun"). It will start up on port
-8761 and serve the Eureka API from "/eureka".
+A simple eureka server with the possibility to have 2 peers running 
+that are aware of each other (server failover). For the peers the hosts and
+the ports can be specified. 
 
-## Resources
+The docker image can be found on: https://hub.docker.com/r/daflockinger/heureka/
 
+The docker can be started with either by creating it from the source: 
+```sh
+mvn clean package docker:build 
+```
+or by pulling the latest from the docker hub:
+```sh
+docker pull daflockinger/heureka
+```
+and started with: 
+```sh
+docker run -d daflockinger/heureka
+```
+
+
+
+For peer1 add this to the docker run command: 
+```sh
+ -Dspring.profiles.active=peer1
+```
+For peer2 add this to the docker run command: 
+```sh
+ -Dspring.profiles.active=peer2
+```
+The peers hostname and port can be configured with adding these environment variables to the docker:
 | Path             | Description  |
 |------------------|--------------|
-| /                        | Home page (HTML UI) listing service registrations          |
-| /eureka/apps         | Raw registration metadata |
-
-## Docker Container
-
-There is a Maven goal (using a [plugin](https://github.com/spring-cloud-samples/eureka/blob/feature/docker/pom.xml#L48)) to 
-generate the Docker container. The container is published in dockerhub at `springcloud/eureka`.
+| PEER1_PORT | Port of the first peer (default is 8761) |
+| PEER1_HOSTNAME | Hostname of the first peer (default is 'peer1') |
+| PEER2_PORT | Port of the second peer (default is 8762) |
+| PEER2_HOSTNAME | Hostname of the second peer (default is 'peer2') |

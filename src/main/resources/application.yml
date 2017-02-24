@@ -1,5 +1,5 @@
 server:
-  port: 8761
+  port: ${PEER1_PORT:8761}
 
 eureka:
   client:
@@ -7,3 +7,26 @@ eureka:
     fetchRegistry: false
   server:
     waitTimeInMsWhenSyncEmpty: 0
+    enableSelfPreservation: true
+    
+---
+spring:
+  profiles: peer1
+eureka:
+  instance:
+    hostname: ${PEER1_HOSTNAME:peer1}
+  client:
+    serviceUrl:
+      defaultZone: http://${PEER2_HOSTNAME:peer2}:${PEER2_PORT:8762}
+
+---
+spring:
+  profiles: peer2
+server:
+  port: ${PEER2_PORT:8762}
+eureka:
+  instance:
+    hostname: ${PEER2_HOSTNAME:peer2}
+  client:
+    serviceUrl:
+      defaultZone: http://${PEER1_HOSTNAME:peer1}${PEER1_PORT:8761}
