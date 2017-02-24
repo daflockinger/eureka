@@ -30,9 +30,11 @@ For peer2 add this to the docker run command:
  -Dspring.profiles.active=peer2
 ```
 The peers hostname and port can be configured with adding these environment variables to the docker:
+
 | Path             | Description  |
 |------------------|--------------|
 | PEER1_PORT | Port of the first peer (default is 8761) |
 | PEER1_HOSTNAME | Hostname of the first peer (default is 'peer1') |
 | PEER2_PORT | Port of the second peer (default is 8762) |
 | PEER2_HOSTNAME | Hostname of the second peer (default is 'peer2') |
+
