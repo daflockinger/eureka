@@ -19,16 +19,19 @@ and started with:
 docker run -d daflockinger/heureka
 ```
 
-
-
-For peer1 add this to the docker run command: 
+For peers add this to the docker run command: 
 ```sh
  -Dspring.profiles.active=peer1
-```
-For peer2 add this to the docker run command: 
-```sh
  -Dspring.profiles.active=peer2
+ -Dspring.profiles.active=peer3
 ```
+
+All 3 instances can be started with docker compose:
+```sh
+cd heureka/
+docker-compose up
+```
+
 The peers hostname and port can be configured with adding these environment variables to the docker:
 
 | Path             | Description  |
@@ -37,4 +40,5 @@ The peers hostname and port can be configured with adding these environment vari
 | PEER1_HOSTNAME | Hostname of the first peer (default is 'peer1') |
 | PEER2_PORT | Port of the second peer (default is 8762) |
 | PEER2_HOSTNAME | Hostname of the second peer (default is 'peer2') |
-
+| PEER3_PORT | Port of the second peer (default is 8763) |
+| PEER3_HOSTNAME | Hostname of the second peer (default is 'peer3') |
