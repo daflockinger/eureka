@@ -1,0 +1,15 @@
+peer1:
+  image: daflockinger/heureka:0.0.1-SNAPSHOT
+  ports: 
+    - "8761:8761" 
+  entrypoint: java -Dspring.profiles.active=peer1 -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+peer2:
+  image: daflockinger/heureka:0.0.1-SNAPSHOT
+  ports:
+    - "8762:8762"
+  entrypoint: java -Dspring.profiles.active=peer2 -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+peer3:
+  image: daflockinger/heureka:0.0.1-SNAPSHOT
+  ports: 
+    - "8763:8763" 
+  entrypoint: java -Dspring.profiles.active=peer3 -Djava.security.egd=file:/dev/./urandom -jar /app.jar

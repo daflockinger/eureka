@@ -2,6 +2,8 @@ server:
   port: ${PEER1_PORT:8761}
 
 eureka:
+  datacenter: ${DATA_CENTER:home}
+  environment: ${Eu_ENVIRONMENT:test}
   client:
     registerWithEureka: false
     fetchRegistry: false
@@ -17,7 +19,7 @@ eureka:
     hostname: ${PEER1_HOSTNAME:peer1}
   client:
     serviceUrl:
-      defaultZone: http://${PEER2_HOSTNAME:peer2}:${PEER2_PORT:8762}
+      defaultZone: http://${PEER2_HOSTNAME:peer2}:${PEER2_PORT:8762},http://${PEER3_HOSTNAME:peer3}:${PEER3_PORT:8763}
 
 ---
 spring:
@@ -29,4 +31,16 @@ eureka:
     hostname: ${PEER2_HOSTNAME:peer2}
   client:
     serviceUrl:
-      defaultZone: http://${PEER1_HOSTNAME:peer1}${PEER1_PORT:8761}
+      defaultZone: http://${PEER1_HOSTNAME:peer1}:${PEER1_PORT:8761},http://${PEER3_HOSTNAME:peer3}:${PEER3_PORT:8763}
+      
+---
+spring:
+  profiles: peer3
+server:
+  port: ${PEER3_PORT:8763}
+eureka:
+  instance:
+    hostname: ${PEER3_HOSTNAME:peer3}
+  client:
+    serviceUrl:
+      defaultZone: http://${PEER1_HOSTNAME:peer1}:${PEER1_PORT:8761},http://${PEER2_HOSTNAME:peer2}:${PEER2_PORT:8762}
